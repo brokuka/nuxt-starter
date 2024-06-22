@@ -33,17 +33,17 @@ async function main() {
     },
   })
 
+  p.outro(PROMT_TEXT.end_install)
+
   try {
     await installNuxt(group.folderName)
-
-    p.outro(PROMT_TEXT.end_install)
   }
   catch (error) {
-    const exectError = error as ExecFileException
+    // const exectError = error as ExecFileException
 
-    if (exectError.stderr) {
-      p.cancel(exectError.stderr)
-    }
+    // if (exectError.stderr) {
+    //   p.cancel(exectError.stderr)
+    // }
 
     process.exit(0)
   }
