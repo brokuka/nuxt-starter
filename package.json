@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "tsx index",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.21.1",
+    "@clack/prompts": "^0.7.0",
+    "@types/node": "^20.14.7",
+    "astro-eslint-parser": "^1.0.2",
+    "eslint": "9.4.0",
+    "eslint-plugin-format": "^0.1.2",
+    "execa": "^9.2.0",
+    "picocolors": "^1.0.1",
+    "tsx": "^4.15.7"
+  }
+}
