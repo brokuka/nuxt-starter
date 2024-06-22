@@ -7,7 +7,7 @@ export async function installNuxt() {
 
   s.start(PROMT_TEXT.start_install_nuxt)
 
-  execCmd('npx nuxi@latest init .')
+  await execCmd('npx nuxi@latest init .')
 
   s.stop()
 }

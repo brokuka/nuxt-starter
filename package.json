@@ -18,7 +18,7 @@
     "dist"
   ],
   "scripts": {
-    "start": "tsx index",
+    "start": "tsx dist/index",
     "build": "tsup --format esm,cjs --clean --dts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
