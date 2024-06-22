@@ -4,20 +4,36 @@
   "version": "1.0.1",
   "author": "Ernest Manukyan <erik.manukyan2010@yandex.ru> (https://github.com/brokuka/)",
   "homepage": "https://github.com/brokuka/nuxt-starter",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "tsx index",
+    "build": "tsup --format esm,cjs --clean --dts",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "release": "bumpp && pnpm publish"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
+    "@brokuka/nuxt-starter": "workspace:*",
     "@clack/prompts": "^0.7.0",
     "@types/node": "^20.14.7",
     "astro-eslint-parser": "^1.0.2",
+    "bumpp": "^9.4.1",
     "eslint": "9.4.0",
     "eslint-plugin-format": "^0.1.2",
     "execa": "^9.2.0",
     "picocolors": "^1.0.1",
+    "tsup": "^8.1.0",
     "tsx": "^4.15.7"
   }
 }
