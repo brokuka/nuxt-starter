@@ -1,7 +1,7 @@
 {
   "name": "@brokuka/nuxt-starter",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Ernest Manukyan <erik.manukyan2010@yandex.ru> (https://github.com/brokuka/)",
   "homepage": "https://github.com/brokuka/nuxt-starter",
   "exports": {
@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
-    "@brokuka/nuxt-starter": "workspace:*",
     "@clack/prompts": "^0.7.0",
     "@types/node": "^20.14.7",
     "astro-eslint-parser": "^1.0.2",
