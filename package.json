@@ -2,6 +2,8 @@
   "name": "@brokuka/nuxt-starter",
   "type": "module",
   "version": "1.0.0",
+  "author": "Ernest Manukyan <erik.manukyan2010@yandex.ru> (https://github.com/brokuka/)",
+  "homepage": "https://github.com/brokuka/nuxt-starter",
   "scripts": {
     "start": "tsx index",
     "lint": "eslint .",
