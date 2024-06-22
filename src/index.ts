@@ -4,9 +4,9 @@ import { fileURLToPath } from 'node:url'
 import * as p from '@clack/prompts'
 import c from 'picocolors'
 import { execa } from 'execa'
-import { makeBaseStructure } from './src/utils/stages/make-base-structure'
-import { installNuxt } from './src/utils/stages/install-nuxt'
-import { PROMT_FOLDER_CHOOSE, PROMT_STRUCTURE_CONFIRM, PROMT_STYLES_SELECT, PROMT_TEXT } from './src/utils/constants'
+import { makeBaseStructure } from './utils/stages/make-base-structure'
+import { installNuxt } from './utils/stages/install-nuxt'
+import { PROMT_FOLDER_CHOOSE, PROMT_STRUCTURE_CONFIRM, PROMT_STYLES_SELECT, PROMT_TEXT } from './utils/constants'
 
 // Current directory name
 const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
