@@ -9,16 +9,16 @@ import { installNuxt } from './utils/stages/install-nuxt'
 import { PROMT_FOLDER_CHOOSE, PROMT_STRUCTURE_CONFIRM, PROMT_STYLES_SELECT, PROMT_TEXT } from './utils/constants'
 
 // Current directory name
-const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
+// const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
 
-const cwd = process.cwd()
-const baseSrcPath = path.join(cwd, 'src')
+// const cwd = process.cwd()
+// const baseSrcPath = path.join(cwd, 'src')
 
 async function main() {
   const group = await p.group({
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
-      defaultValue: __dirname,
+      defaultValue: 'name',
     }),
     styles: () => p.select({
       message: PROMT_TEXT.select_css_styles,
