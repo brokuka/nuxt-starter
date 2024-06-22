@@ -12,7 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
 // const baseSrcPath = path.join(cwd, 'src')
 
 async function main() {
-  const group = await p.group({
+  await p.group({
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
       defaultValue: __dirname,
