@@ -6,6 +6,7 @@ export const PROMT_TEXT = {
   start_install_nuxt: 'Starting installing nuxt to current folder',
   start_make_base_structure: 'Starting making base structure',
   select_css_styles: 'Choose your css style',
+  end_install: 'Happy hacking ;)',
 }
 
 export const PROMT_FOLDER_CHOOSE = {
