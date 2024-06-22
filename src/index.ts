@@ -14,7 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
 // const baseSrcPath = path.join(cwd, 'src')
 
 async function main() {
-  await p.group({
+  const group = await p.group({
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
       defaultValue: __dirname,
@@ -34,7 +34,7 @@ async function main() {
   })
 
   try {
-    await installNuxt()
+    await installNuxt(group.folderName)
 
     p.outro(PROMT_TEXT.end_install)
   }
