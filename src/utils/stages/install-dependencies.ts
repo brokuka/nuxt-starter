@@ -12,12 +12,12 @@ export const NUXT_PACKAGES = {
   'eslint-plugin-format': 'latest',
 } as const
 
-export async function installNuxt(pkgInfo?: PackageManager) {
+export default async function installDependencies(pkgInfo?: PackageManager) {
   const s = spinner()
 
-  s.start(PROMT_TEXT.start_install_nuxt)
+  s.start(PROMT_TEXT.start_install_dependencies)
 
   await addPackage({ source: NUXT_PACKAGES, pkgManager: pkgInfo?.name ?? 'npm' })
 
-  s.stop()
+  s.stop(PROMT_TEXT.end_install_dependencies)
 }
