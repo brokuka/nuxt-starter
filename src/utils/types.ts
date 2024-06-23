@@ -21,13 +21,6 @@ export interface IMakeFolder {
   cb?: Function
 }
 
-export interface ICopyFolder {
-  from: string
-  to: string
-  recursive?: boolean
-  cb?: Function
-}
-
 export interface IPackageManagerAndCwd {
   packageManager: PackageManager
   cwd: string

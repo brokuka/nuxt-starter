@@ -8,6 +8,7 @@ export const NUXT_PACKAGES = {
   '@antfu/eslint-config': 'latest',
   '@nuxt/eslint': 'latest',
   'eslint-plugin-format': 'latest',
+  'eslint': 'latest',
 } as const
 
 export const PROMT_TEXT = {

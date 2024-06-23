@@ -1,27 +1,10 @@
 import fs from 'node:fs'
 import cp from 'node:child_process'
 import util from 'node:util'
-import type { ICopyFolder, IMakeFolder } from './types'
+import type { IMakeFolder } from './types'
 
 export function makeFolder({ cb, path, recursive = true }: IMakeFolder) {
   return fs.mkdir(path, { recursive }, (err) => {
-    if (err) {
-      console.error(err)
-    }
-
-    if (cb) {
-      cb()
-    }
-  })
-}
-
-export function copyFolder({
-  from,
-  to,
-  recursive = true,
-  cb,
-}: ICopyFolder) {
-  return fs.cp(from, to, { recursive }, (err) => {
     if (err) {
       console.error(err)
     }
