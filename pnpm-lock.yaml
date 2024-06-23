@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@antfu/install-pkg':
+        specifier: ^0.3.3
+        version: 0.3.3
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^2.21.1
@@ -29,9 +33,6 @@ importers:
       eslint-plugin-format:
         specifier: ^0.1.2
         version: 0.1.2(eslint@9.5.0)
-      nypm:
-        specifier: ^0.3.8
-        version: 0.3.8
       picocolors:
         specifier: ^1.0.1
         version: 1.0.1

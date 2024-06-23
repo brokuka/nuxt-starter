@@ -1,6 +1,6 @@
 import type { ExecException } from 'node:child_process'
 import type { NoParamCallback } from 'node:fs'
-import type { PackageManager, PackageManagerName } from 'nypm'
+import type { PackageManager } from '@antfu/install-pkg'
 
 export interface IPromtTextGroup {
   message: string
@@ -28,13 +28,11 @@ export interface ICopyFolder {
   cb?: Function
 }
 
-export interface IAddPackage {
-  source: string | Record<string, string>
-  pkgManager: PackageManagerName
+export interface IPackageManagerAndCwd {
+  packageManager: PackageManager
   cwd: string
 }
 
-export interface IInstallDependencies {
-  pkgInfo?: PackageManager
-  cwd: string
+export interface IDownloadTemplate {
+  destination: string
 }

@@ -1,7 +1,17 @@
 import c from 'picocolors'
 import type { IPromtSelect, IPromtTextGroup } from './types'
 
+export const NUXT_PACKAGES = {
+  'nuxt': 'latest',
+  'vue': 'latest',
+  'vue-router': 'latest',
+  '@antfu/eslint-config': 'latest',
+  '@nuxt/eslint': 'latest',
+  'eslint-plugin-format': 'latest',
+} as const
+
 export const PROMT_TEXT = {
+  select_package_manager: 'Choose package manager for project',
   cancel_install: 'Installation cancelled',
   start_download_template: 'Downloading clean template',
   end_download_template: 'Template downloaded successfully',
@@ -22,6 +32,13 @@ export const BASIC_STRUCTURE = {
   styles: 'assets/styles',
   middleware: 'middleware',
 }
+
+export const PROMT_PACKAGE_MANAGER_SELECT = [
+  { value: 'npm', label: 'npm' },
+  { value: 'yarn', label: 'yarn' },
+  { value: 'pnpm', label: 'pnpm' },
+  { value: 'bun', label: 'bun' },
+] satisfies IPromtSelect[]
 
 export const PROMT_STYLES_SELECT = [
   { value: 'scss', label: c.red('SCSS') },

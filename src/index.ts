@@ -1,18 +1,23 @@
 import process from 'node:process'
 import type { ExecFileException } from 'node:child_process'
-import { detectPackageManager } from 'nypm'
 import * as p from '@clack/prompts'
+import type { PackageManager } from '@antfu/install-pkg'
 import installDependencies from './cli/stages/install-dependencies'
-import { PROMT_FOLDER_CHOOSE, PROMT_STRUCTURE_CONFIRM, PROMT_STYLES_SELECT, PROMT_TEXT } from './utils/constants'
+import { PROMT_FOLDER_CHOOSE, PROMT_PACKAGE_MANAGER_SELECT, PROMT_TEXT } from './utils/constants'
 import downloadTemplate from './cli/stages/download-template'
 import postInstall from './cli/stages/post-install'
 
 const cwd = process.cwd()
 
 async function main() {
-  const pkgInfo = await detectPackageManager(cwd)
+  // const pkgInfo = await detectPackageManager(cwd)
 
   const group = await p.group({
+    packageManager: () => p.select({
+      message: PROMT_TEXT.select_package_manager,
+      options: PROMT_PACKAGE_MANAGER_SELECT,
+      initialValue: 'npm',
+    }),
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
       defaultValue: '.',
@@ -37,11 +42,14 @@ async function main() {
     })
 
     await installDependencies({
-      pkgInfo,
+      packageManager: group.packageManager as PackageManager,
       cwd: group.folderName,
     })
 
-    await postInstall(group.folderName)
+    await postInstall({
+      cwd: group.folderName,
+      packageManager: group.packageManager as PackageManager,
+    })
   }
   catch (error) {
     const exectError = error as ExecFileException

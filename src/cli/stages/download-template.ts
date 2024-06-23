@@ -1,10 +1,7 @@
 import { spinner } from '@clack/prompts'
+import type { IDownloadTemplate } from 'src/utils/types'
 import { PROMT_TEXT } from '../../utils/constants'
 import { execCmd } from '../../utils/common'
-
-interface IDownloadTemplate {
-  destination: string
-}
 
 export default async function downloadTemplate({ destination }: IDownloadTemplate) {
   const s = spinner()

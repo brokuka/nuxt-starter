@@ -1,23 +1,16 @@
 import { spinner } from '@clack/prompts'
-import type { IInstallDependencies } from 'src/utils/types'
-import { PROMT_TEXT } from '../../utils/constants'
-import { addPackage } from '../../utils/common'
+import type { IPackageManagerAndCwd } from 'src/utils/types'
+import { installPackage } from '@antfu/install-pkg'
+import { NUXT_PACKAGES, PROMT_TEXT } from '../../utils/constants'
+import { transformObjectToArray } from '../../utils/common'
 
-export const NUXT_PACKAGES = {
-  'nuxt': 'latest',
-  'vue': 'latest',
-  'vue-router': 'latest',
-  '@antfu/eslint-config': 'latest',
-  '@nuxt/eslint': 'latest',
-  'eslint-plugin-format': 'latest',
-} as const
-
-export default async function installDependencies({ pkgInfo, cwd }: IInstallDependencies) {
+export default async function installDependencies({ packageManager, cwd }: IPackageManagerAndCwd) {
   const s = spinner()
 
   s.start(PROMT_TEXT.start_install_dependencies)
 
-  await addPackage({ source: NUXT_PACKAGES, pkgManager: pkgInfo?.name ?? 'npm', cwd })
+  const pkgArray = transformObjectToArray(NUXT_PACKAGES)
+  await installPackage(pkgArray, { cwd, packageManager, silent: true })
 
   s.stop(PROMT_TEXT.end_install_dependencies)
 }
