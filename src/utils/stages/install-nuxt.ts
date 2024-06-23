@@ -19,10 +19,7 @@ export async function installNuxt({ pkgManager, destination }: IInstallNuxtProps
 
   s.start(PROMT_TEXT.start_install_nuxt)
 
-  copyFolder({
-    from: './template',
-    to: destination,
-  })
+  await execCmd(`npx giget@latest gh:brokuka/nuxt-starter/template ${destination}`)
 
   await addPackage(NUXT_PACKAGES, pkgManager)
   await execCmd(`nr prepare`)
