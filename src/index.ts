@@ -1,6 +1,6 @@
 import process from 'node:process'
-import { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+// import { dirname } from 'node:path'
+// import { fileURLToPath } from 'node:url'
 import type { ExecFileException } from 'node:child_process'
 import * as p from '@clack/prompts'
 import { detectPackageManager } from 'nypm'
@@ -8,7 +8,7 @@ import { installNuxt } from './utils/stages/install-nuxt'
 import { PROMT_FOLDER_CHOOSE, PROMT_STRUCTURE_CONFIRM, PROMT_STYLES_SELECT, PROMT_TEXT } from './utils/constants'
 
 // Current directory name
-const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
+// const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
 
 const cwd = process.cwd()
 // const baseSrcPath = path.join(cwd, 'src')
@@ -19,7 +19,7 @@ async function main() {
   const group = await p.group({
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
-      defaultValue: __dirname,
+      defaultValue: '.',
     }),
     styles: () => p.select({
       message: PROMT_TEXT.select_css_styles,
@@ -40,6 +40,7 @@ async function main() {
   try {
     await installNuxt({
       pkgManager: pkgInfo?.name,
+      destination: group.folderName,
     })
   }
   catch (error) {

@@ -1,4 +1,5 @@
 import type { ExecException } from 'node:child_process'
+import type { NoParamCallback } from 'node:fs'
 
 export interface IPromtTextGroup {
   message: string
@@ -12,3 +13,16 @@ export interface IPromtSelect {
 }
 
 export interface IExecFileException extends Omit<ExecException, 'code'>, Omit<NodeJS.ErrnoException, 'code'> { code?: string | number | undefined | null }
+
+export interface IMakeFolder {
+  path: string
+  recursive?: boolean
+  cb?: Function
+}
+
+export interface ICopyFolder {
+  from: string
+  to: string
+  recursive?: boolean
+  cb?: Function
+}
