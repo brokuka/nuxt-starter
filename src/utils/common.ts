@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import cp from 'node:child_process'
 import util from 'node:util'
-import type { ICopyFolder, IMakeFolder } from './types'
+import type { IAddPackage, ICopyFolder, IMakeFolder } from './types'
 
 export function makeFolder({ cb, path, recursive = true }: IMakeFolder) {
   return fs.mkdir(path, { recursive }, (err) => {
@@ -38,7 +38,7 @@ export function execCmd(cmd: string) {
   return exec(cmd)
 }
 
-export async function addPackage(source: string | Record<string, string>) {
+export async function addPackage({ source, pkgManager }: IAddPackage) {
   if (typeof source === 'string') {
     await execCmd(`ni ${source}`)
 
@@ -49,5 +49,5 @@ export async function addPackage(source: string | Record<string, string>) {
     return `${acc} ${cur}@${source[cur]}`
   }, '').trim()
 
-  return await execCmd(`ni ${packages}`)
+  await execCmd(`${pkgManager} install ${packages}`)
 }

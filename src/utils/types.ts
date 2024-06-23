@@ -1,5 +1,6 @@
 import type { ExecException } from 'node:child_process'
 import type { NoParamCallback } from 'node:fs'
+import type { PackageManagerName } from 'nypm'
 
 export interface IPromtTextGroup {
   message: string
@@ -25,4 +26,9 @@ export interface ICopyFolder {
   to: string
   recursive?: boolean
   cb?: Function
+}
+
+export interface IAddPackage {
+  source: string | Record<string, string>
+  pkgManager: PackageManagerName
 }

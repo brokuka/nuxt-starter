@@ -23,9 +23,15 @@ importers:
       bumpp:
         specifier: ^9.4.1
         version: 9.4.1(magicast@0.3.4)
+      eslint:
+        specifier: ^9.5.0
+        version: 9.5.0
       eslint-plugin-format:
         specifier: ^0.1.2
         version: 0.1.2(eslint@9.5.0)
+      nypm:
+        specifier: ^0.3.8
+        version: 0.3.8
       picocolors:
         specifier: ^1.0.1
         version: 1.0.1

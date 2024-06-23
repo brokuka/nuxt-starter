@@ -1,4 +1,4 @@
-import { spinner, } from '@clack/prompts'
+import { spinner } from '@clack/prompts'
 import { PROMT_TEXT } from '../constants'
 import { execCmd } from '../common'
 
@@ -11,7 +11,7 @@ export default async function downloadTemplate({ destination }: IDownloadTemplat
 
   s.start(PROMT_TEXT.start_download_template)
 
-  await execCmd(`nlx giget@latest gh:brokuka/nuxt-starter/template ${destination}`)
+  await execCmd(`npx giget@latest gh:brokuka/nuxt-starter/template ${destination}`)
 
   s.stop(PROMT_TEXT.end_download_template)
 }
