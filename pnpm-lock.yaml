@@ -29,9 +29,6 @@ importers:
       execa:
         specifier: ^9.2.0
         version: 9.2.0
-      nypm:
-        specifier: ^0.3.8
-        version: 0.3.8
       picocolors:
         specifier: ^1.0.1
         version: 1.0.1

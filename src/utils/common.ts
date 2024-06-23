@@ -38,7 +38,7 @@ export function execCmd(cmd: string) {
   return exec(cmd)
 }
 
-export async function addPackage(source: string | Record<string, string>, pkgManager?: string | 'npm') {
+export async function addPackage(source: string | Record<string, string>) {
   if (typeof source === 'string') {
     await execCmd(`ni ${source}`)
 
@@ -49,5 +49,5 @@ export async function addPackage(source: string | Record<string, string>, pkgMan
     return `${acc} ${cur}@${source[cur]}`
   }, '').trim()
 
-  await execCmd(`${pkgManager} install ${packages}`)
+  await execCmd(`ni ${packages}`)
 }

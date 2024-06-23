@@ -3,18 +3,15 @@ import process from 'node:process'
 // import { fileURLToPath } from 'node:url'
 import type { ExecFileException } from 'node:child_process'
 import * as p from '@clack/prompts'
-import { detectPackageManager } from 'nypm'
 import { installNuxt } from './utils/stages/install-nuxt'
 import { PROMT_FOLDER_CHOOSE, PROMT_STRUCTURE_CONFIRM, PROMT_STYLES_SELECT, PROMT_TEXT } from './utils/constants'
 
 // Current directory name
 // const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
 
-const cwd = process.cwd()
+// const cwd = process.cwd()
 
 async function main() {
-  const pkgInfo = await detectPackageManager(cwd)
-
   const group = await p.group({
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
@@ -38,7 +35,7 @@ async function main() {
 
   try {
     await installNuxt({
-      pkgManager: pkgInfo?.name,
+      // pkgManager: pkgInfo?.name,
       destination: group.folderName,
     })
   }
