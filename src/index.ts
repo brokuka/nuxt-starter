@@ -11,7 +11,6 @@ import { PROMT_FOLDER_CHOOSE, PROMT_STRUCTURE_CONFIRM, PROMT_STYLES_SELECT, PROM
 // const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
 
 const cwd = process.cwd()
-// const baseSrcPath = path.join(cwd, 'src')
 
 async function main() {
   const pkgInfo = await detectPackageManager(cwd)
