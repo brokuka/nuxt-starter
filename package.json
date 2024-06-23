@@ -16,7 +16,8 @@
   "bin": "./bin/index.js",
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "template"
   ],
   "scripts": {
     "start": "tsx dist/index",

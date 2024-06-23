@@ -20,7 +20,7 @@ export async function installNuxt({ pkgManager, destination }: IInstallNuxtProps
   s.start(PROMT_TEXT.start_install_nuxt)
 
   copyFolder({
-    from: './src/template',
+    from: './template',
     to: destination,
   })
 
