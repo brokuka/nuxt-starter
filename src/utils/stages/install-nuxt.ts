@@ -1,13 +1,19 @@
 import { spinner } from '@clack/prompts'
 import { PROMT_TEXT } from '../constants'
-import { execCmd } from '../common'
+import { addPackage } from '../common'
 
-export async function installNuxt(destination: string) {
+export const NUXT_PACKAGES = {
+  'nuxt': 'latest',
+  'vue': 'latest',
+  'vue-router': 'latest',
+} as const
+
+export async function installNuxt() {
   const s = spinner()
 
   s.start(PROMT_TEXT.start_install_nuxt)
 
-  await execCmd(`nlx nuxi@latest init ${destination}`)
+  await addPackage(NUXT_PACKAGES)
 
-  s.stop()
+  s.stop(PROMT_TEXT.end_install)
 }

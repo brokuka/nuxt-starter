@@ -11,3 +11,17 @@ export function execCmd(cmd: string) {
 
   return exec(cmd)
 }
+
+export async function addPackage(source: string | Record<string, string>) {
+  if (typeof source === 'string') {
+    await execCmd(`ni ${source}`)
+
+    return
+  }
+
+  const packages = Object.keys(source).reduce((acc, cur) => {
+    return `${acc} ${cur}@${source[cur]}`
+  }, '').trim()
+
+  await execCmd(`ni ${packages}`)
+}

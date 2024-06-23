@@ -31,7 +31,6 @@
     "@clack/prompts": "^0.7.0",
     "@types/node": "^20.14.7",
     "bumpp": "^9.4.1",
-    "eslint": "9.4.0",
     "eslint-plugin-format": "^0.1.2",
     "execa": "^9.2.0",
     "picocolors": "^1.0.1",
