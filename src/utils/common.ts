@@ -49,5 +49,5 @@ export async function addPackage(source: string | Record<string, string>) {
     return `${acc} ${cur}@${source[cur]}`
   }, '').trim()
 
-  await execCmd(`ni ${packages}`)
+  return await execCmd(`ni ${packages}`)
 }
