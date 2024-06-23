@@ -1,6 +1,4 @@
 import process from 'node:process'
-// import { dirname } from 'node:path'
-// import { fileURLToPath } from 'node:url'
 import type { ExecFileException } from 'node:child_process'
 import { detectPackageManager } from 'nypm'
 import * as p from '@clack/prompts'
@@ -8,9 +6,6 @@ import { installNuxt } from './utils/stages/install-nuxt'
 import { PROMT_FOLDER_CHOOSE, PROMT_STRUCTURE_CONFIRM, PROMT_STYLES_SELECT, PROMT_TEXT } from './utils/constants'
 import downloadTemplate from './utils/stages/download-template'
 import postInstall from './utils/stages/post-install'
-
-// Current directory name
-// const __dirname = dirname(fileURLToPath(import.meta.url)).replace(/^.*\\/, '')
 
 const cwd = process.cwd()
 
