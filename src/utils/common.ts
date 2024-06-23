@@ -32,13 +32,13 @@ export function copyFolder({
   })
 }
 
-export function execCmd(cmd: string) {
+export function execCmd(cmd: string, cwd?: string) {
   const exec = util.promisify(cp.exec)
 
-  return exec(cmd)
+  return exec(cmd, { cwd })
 }
 
-export async function addPackage({ source, pkgManager }: IAddPackage) {
+export async function addPackage({ source, pkgManager, cwd }: IAddPackage) {
   if (typeof source === 'string') {
     await execCmd(`ni ${source}`)
 
@@ -49,5 +49,5 @@ export async function addPackage({ source, pkgManager }: IAddPackage) {
     return `${acc} ${cur}@${source[cur]}`
   }, '').trim()
 
-  await execCmd(`${pkgManager} install ${packages}`)
+  await execCmd(`${pkgManager} install ${packages}`, cwd)
 }

@@ -1,6 +1,6 @@
 import { spinner } from '@clack/prompts'
-import { PROMT_TEXT } from '../constants'
-import { execCmd } from '../common'
+import { PROMT_TEXT } from '../../utils/constants'
+import { execCmd } from '../../utils/common'
 
 interface IDownloadTemplate {
   destination: string

@@ -1,6 +1,6 @@
 import { spinner } from '@clack/prompts'
-import { makeFolder } from '../common'
-import { BASIC_STRUCTURE, PROMT_TEXT } from '../constants'
+import { makeFolder } from '../../utils/common'
+import { BASIC_STRUCTURE, PROMT_TEXT } from '../../utils/constants'
 
 export function makeBaseStructure(directory: string) {
   const s = spinner()
