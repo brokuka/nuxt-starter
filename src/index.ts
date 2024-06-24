@@ -7,10 +7,8 @@ import { PROMT_FOLDER_CHOOSE, PROMT_PACKAGE_MANAGER_SELECT, PROMT_TEXT } from '.
 import downloadTemplate from './cli/stages/download-template'
 import postInstall from './cli/stages/post-install'
 
-const cwd = process.cwd()
-
 async function main() {
-  // const pkgInfo = await detectPackageManager(cwd)
+  const defaultFolderName = __dirname.replace(/.*\\([^\\]+)$/, '$1')
 
   const group = await p.group({
     packageManager: () => p.select({
@@ -20,7 +18,7 @@ async function main() {
     }),
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
-      defaultValue: '.',
+      defaultValue: defaultFolderName,
     }),
     // styles: () => p.select({
     //   message: PROMT_TEXT.select_css_styles,

@@ -22,6 +22,7 @@
   "scripts": {
     "start": "tsx dist/index",
     "build": "tsup --format esm,cjs --clean --dts",
+    "build:run": "nr build && nr start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp && pnpm publish"
