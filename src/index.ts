@@ -8,8 +8,6 @@ import downloadTemplate from './cli/stages/download-template'
 import postInstall from './cli/stages/post-install'
 
 async function main() {
-  const defaultFolderName = __dirname.replace(/.*\\([^\\]+)$/, '$1')
-
   const group = await p.group({
     packageManager: () => p.select({
       message: PROMT_TEXT.select_package_manager,
@@ -18,7 +16,6 @@ async function main() {
     }),
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
-      defaultValue: defaultFolderName,
     }),
     // styles: () => p.select({
     //   message: PROMT_TEXT.select_css_styles,
@@ -34,18 +31,20 @@ async function main() {
     },
   })
 
+  const defaultFolderName = group.folderName === PROMT_FOLDER_CHOOSE.defaultValue ? '.' : group.folderName
+
   try {
     await downloadTemplate({
-      destination: group.folderName,
+      destination: defaultFolderName,
     })
 
     await installDependencies({
       packageManager: group.packageManager as PackageManager,
-      cwd: group.folderName,
+      cwd: defaultFolderName,
     })
 
     await postInstall({
-      cwd: group.folderName,
+      cwd: defaultFolderName,
       packageManager: group.packageManager as PackageManager,
     })
   }

@@ -27,6 +27,7 @@ export const PROMT_TEXT = {
 export const PROMT_FOLDER_CHOOSE = {
   message: c.blue('What\'s your folder name ?'),
   placeholder: `Enter folder name ${c.cyan('(press ENTER if it\'s current folder)')}`,
+  defaultValue: 'Current folder',
 } satisfies IPromtTextGroup
 
 export const BASIC_STRUCTURE = {

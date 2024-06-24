@@ -1,10 +1,10 @@
 import type { ExecException } from 'node:child_process'
-import type { NoParamCallback } from 'node:fs'
 import type { PackageManager } from '@antfu/install-pkg'
 
 export interface IPromtTextGroup {
   message: string
   placeholder?: string
+  defaultValue: string
 }
 
 export interface IPromtSelect {
