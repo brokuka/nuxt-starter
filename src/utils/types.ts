@@ -15,12 +15,6 @@ export interface IPromtSelect {
 
 export interface IExecFileException extends Omit<ExecException, 'code'>, Omit<NodeJS.ErrnoException, 'code'> { code?: string | number | undefined | null }
 
-export interface IMakeFolder {
-  path: string
-  recursive?: boolean
-  cb?: Function
-}
-
 export interface IPackageManagerAndCwd {
   packageManager: PackageManager
   cwd: string
@@ -28,4 +22,7 @@ export interface IPackageManagerAndCwd {
 
 export interface IDownloadTemplate {
   destination: string
+  name: TemplatesName
 }
+
+export type TemplatesName = 'v3' | 'v4' | '@brokuka'

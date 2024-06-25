@@ -3,9 +3,11 @@ import type { ExecFileException } from 'node:child_process'
 import * as p from '@clack/prompts'
 import type { PackageManager } from '@antfu/install-pkg'
 import installDependencies from './cli/stages/install-dependencies'
-import { PROMT_FOLDER_CHOOSE, PROMT_PACKAGE_MANAGER_SELECT, PROMT_TEXT } from './utils/constants'
+import { PROMT_FOLDER_CHOOSE, PROMT_PACKAGE_MANAGER_SELECT, PROMT_TEMPLATE_SELECT, PROMT_TEXT } from './utils/constants'
 import downloadTemplate from './cli/stages/download-template'
 import postInstall from './cli/stages/post-install'
+import initGit from './cli/stages/init-git'
+import type { TemplatesName } from './utils/types'
 
 async function main() {
   const group = await p.group({
@@ -17,13 +19,14 @@ async function main() {
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
     }),
-    // styles: () => p.select({
-    //   message: PROMT_TEXT.select_css_styles,
-    //   // @ts-expect-error * BUG *
-    //   // ! https://github.com/bombshell-dev/clack/issues/178
-    //   options: PROMT_STYLES_SELECT,
-    // }),
-    // default_structure: () => p.confirm(PROMT_STRUCTURE_CONFIRM),
+    template: () => p.select({
+      message: PROMT_TEXT.select_project_template,
+      options: PROMT_TEMPLATE_SELECT,
+      initialValue: 'v3',
+    }),
+    git: () => p.confirm({
+      message: PROMT_TEXT.git_confirm,
+    }),
   }, {
     onCancel: () => {
       p.cancel(PROMT_TEXT.cancel_install)
@@ -36,6 +39,7 @@ async function main() {
   try {
     await downloadTemplate({
       destination: defaultFolderName,
+      name: group.template as TemplatesName,
     })
 
     await installDependencies({
@@ -47,6 +51,10 @@ async function main() {
       cwd: defaultFolderName,
       packageManager: group.packageManager as PackageManager,
     })
+
+    if (group.git) {
+      await initGit(defaultFolderName)
+    }
   }
   catch (error) {
     const exectError = error as ExecFileException
