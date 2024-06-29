@@ -10,7 +10,7 @@ import initGit from './cli/stages/init-git'
 import type { TemplatesName } from './utils/types'
 
 async function main() {
-  const group = await p.group({
+  const defaultSettings = await p.group({
     packageManager: () => p.select({
       message: PROMT_TEXT.select_package_manager,
       options: PROMT_PACKAGE_MANAGER_SELECT,
@@ -19,16 +19,8 @@ async function main() {
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
     }),
-    template: () => p.select({
-      message: PROMT_TEXT.select_project_template,
-      options: PROMT_TEMPLATE_SELECT,
-      initialValue: 'v3',
-    }),
-    typescript: () => p.confirm({
-      message: PROMT_TEXT.confirm_typescript,
-    }),
-    git: () => p.confirm({
-      message: PROMT_TEXT.confirm_git,
+    unocss: () => p.confirm({
+      message: PROMT_TEXT.confirm_unocss,
     }),
   }, {
     onCancel: () => {
@@ -37,26 +29,50 @@ async function main() {
     },
   })
 
-  const defaultFolderName = group.folderName === PROMT_FOLDER_CHOOSE.defaultValue ? '.' : group.folderName
+  const options = PROMT_TEMPLATE_SELECT.filter(
+    option => option.label.toLowerCase().includes('unocss') === defaultSettings.unocss,
+  )
+
+  const initialValue = defaultSettings.unocss ? 'v3-unocss' : 'v3'
+
+  const additionalSettings = await p.group({
+    template: () => p.select({
+      message: PROMT_TEXT.select_project_template,
+      options,
+      initialValue,
+    }),
+    typescript: () => p.confirm({
+      message: PROMT_TEXT.confirm_typescript,
+    }),
+    git: () => p.confirm({
+      message: PROMT_TEXT.confirm_git,
+    }),
+  })
+
+  const defaultFolderName = defaultSettings.folderName || '.'
+  const packageManager = defaultSettings.packageManager as PackageManager
 
   try {
-    await downloadTemplate({
-      destination: defaultFolderName,
-      name: group.template as TemplatesName,
-    })
+    await Promise.all([
+      downloadTemplate({
+        destination: defaultFolderName,
+        name: additionalSettings.template as TemplatesName,
+      }),
+      installDependencies({
+        packageManager,
+        cwd: defaultFolderName,
+        additional: {
+          typescript: additionalSettings.typescript,
+          unocss: defaultSettings.unocss,
+        },
+      }),
+      postInstall({
+        cwd: defaultFolderName,
+        packageManager,
+      }),
+    ])
 
-    await installDependencies({
-      packageManager: group.packageManager as PackageManager,
-      cwd: defaultFolderName,
-      typescript: group.typescript,
-    })
-
-    await postInstall({
-      cwd: defaultFolderName,
-      packageManager: group.packageManager as PackageManager,
-    })
-
-    if (group.git) {
+    if (additionalSettings.git) {
       await initGit(defaultFolderName)
     }
   }
@@ -66,6 +82,7 @@ async function main() {
     if (exectError.stderr) {
       p.cancel(exectError.stderr)
     }
+
     process.exit(0)
   }
 }
