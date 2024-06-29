@@ -16,8 +16,7 @@
   "bin": "./bin/index.js",
   "files": [
     "bin",
-    "dist",
-    "template"
+    "dist"
   ],
   "scripts": {
     "build": "tsup --format esm,cjs --clean --dts",
