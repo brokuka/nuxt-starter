@@ -26,7 +26,21 @@ export interface IDownloadTemplate {
 }
 
 export interface IInstallDependencies extends IPackageManagerAndCwd {
-  typescript: boolean
+  additional: {
+    typescript: boolean
+    unocss: boolean
+  }
+}
+
+export interface Branch {
+  name: string
+  commit: BranchCommit
+  protected: boolean
+}
+
+export interface BranchCommit {
+  sha: string
+  url: string
 }
 
 export type TemplatesName = 'v3' | 'v4' | '@brokuka'
