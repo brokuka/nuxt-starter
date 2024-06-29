@@ -1,14 +1,17 @@
 import c from 'picocolors'
 import type { IPromtSelect, IPromtTextGroup } from './types'
 
-export const NUXT_PACKAGES = {
+export const BASIC_PACKAGES = {
   'nuxt': 'latest',
-  'vue': 'latest',
-  'vue-router': 'latest',
   '@antfu/eslint-config': 'latest',
   '@nuxt/eslint': 'latest',
   'eslint-plugin-format': 'latest',
   'eslint': 'latest',
+} as const
+
+export const ADDITIONAL_PACKAGES = {
+  'typescript': 'latest',
+  'vue-tsc': 'latest',
 } as const
 
 export const PROMT_TEXT = {
@@ -22,7 +25,8 @@ export const PROMT_TEXT = {
   start_make_base_structure: 'Starting making base structure',
   select_css_styles: 'Choose your css style',
   select_project_template: 'Select project template',
-  git_confirm: 'Initialize git?',
+  confirm_typescript: 'Do you want to add typescript?',
+  confirm_git: 'Initialize git?',
   end_install: 'Happy hacking ;)',
 }
 

@@ -24,8 +24,11 @@ async function main() {
       options: PROMT_TEMPLATE_SELECT,
       initialValue: 'v3',
     }),
+    typescript: () => p.confirm({
+      message: PROMT_TEXT.confirm_typescript,
+    }),
     git: () => p.confirm({
-      message: PROMT_TEXT.git_confirm,
+      message: PROMT_TEXT.confirm_git,
     }),
   }, {
     onCancel: () => {
@@ -45,6 +48,7 @@ async function main() {
     await installDependencies({
       packageManager: group.packageManager as PackageManager,
       cwd: defaultFolderName,
+      typescript: group.typescript,
     })
 
     await postInstall({

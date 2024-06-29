@@ -25,4 +25,8 @@ export interface IDownloadTemplate {
   name: TemplatesName
 }
 
+export interface IInstallDependencies extends IPackageManagerAndCwd {
+  typescript: boolean
+}
+
 export type TemplatesName = 'v3' | 'v4' | '@brokuka'
