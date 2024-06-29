@@ -49,7 +49,8 @@ async function main() {
     }),
   })
 
-  const cwd = defaultSettings.folderName || '.'
+  const cwd = defaultSettings.folderName === PROMT_FOLDER_CHOOSE.defaultValue ? '.' : defaultSettings.folderName
+
   const packageManager = defaultSettings.packageManager as PackageManager
 
   try {
