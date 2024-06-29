@@ -49,38 +49,43 @@ async function main() {
     }),
   })
 
-  const defaultFolderName = defaultSettings.folderName || '.'
+  const cwd = defaultSettings.folderName || '.'
   const packageManager = defaultSettings.packageManager as PackageManager
 
   try {
-    await Promise.all([
-      downloadTemplate({
-        destination: defaultFolderName,
-        name: additionalSettings.template as TemplatesName,
-      }),
-      installDependencies({
-        packageManager,
-        cwd: defaultFolderName,
-        additional: {
-          typescript: additionalSettings.typescript,
-          unocss: defaultSettings.unocss,
-        },
-      }),
-      postInstall({
-        cwd: defaultFolderName,
-        packageManager,
-      }),
-    ])
+    await downloadTemplate({
+      cwd,
+      name: additionalSettings.template as TemplatesName,
+    })
+
+    await installDependencies({
+      packageManager,
+      cwd,
+      additional: {
+        typescript: additionalSettings.typescript,
+        unocss: defaultSettings.unocss,
+      },
+    })
+
+    await postInstall({
+      cwd,
+      packageManager,
+    })
 
     if (additionalSettings.git) {
-      await initGit(defaultFolderName)
+      await initGit(cwd)
     }
   }
   catch (error) {
     const exectError = error as ExecFileException
+    const defaultError = error as Error
 
     if (exectError.stderr) {
       p.cancel(exectError.stderr)
+    }
+
+    if (defaultError) {
+      p.cancel(defaultError.message)
     }
 
     process.exit(0)

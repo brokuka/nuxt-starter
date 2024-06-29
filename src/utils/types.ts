@@ -21,7 +21,7 @@ export interface IPackageManagerAndCwd {
 }
 
 export interface IDownloadTemplate {
-  destination: string
+  cwd: string
   name: TemplatesName
 }
 
