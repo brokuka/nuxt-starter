@@ -1,5 +1,5 @@
 import { spinner } from '@clack/prompts'
-import type { IInstallDependencies } from 'src/utils/types'
+import type { IInstallDependencies, Keys } from 'src/utils/types'
 import { installPackage } from '@antfu/install-pkg'
 import { ADDITIONAL_PACKAGES, BASIC_PACKAGES, PROMT_TEXT } from '../../utils/constants'
 import { transformObjectToArray } from '../../utils/common'
@@ -9,14 +9,12 @@ export default async function installDependencies({ packageManager, cwd, additio
 
   s.start(PROMT_TEXT.start_install_dependencies)
 
-  let additionalPackages: string[] = []
+  const additionalPackages: string[] = []
 
-  if (additional.typescript) {
-    additionalPackages = transformObjectToArray(ADDITIONAL_PACKAGES.typescript)
-  }
-
-  if (additional.unocss) {
-    additionalPackages = transformObjectToArray(ADDITIONAL_PACKAGES.unocss)
+  for (const add in additional) {
+    if (additional[add as Keys<typeof additional>]) {
+      additionalPackages.push(...transformObjectToArray(ADDITIONAL_PACKAGES[add as Keys<typeof additional>]))
+    }
   }
 
   const pkgArray = transformObjectToArray(BASIC_PACKAGES)

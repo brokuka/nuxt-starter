@@ -1,6 +1,8 @@
 import type { ExecException } from 'node:child_process'
 import type { PackageManager } from '@antfu/install-pkg'
 
+export type Keys<T extends Record<string, unknown>> = keyof T
+
 export interface IPromtTextGroup {
   message: string
   placeholder?: string
