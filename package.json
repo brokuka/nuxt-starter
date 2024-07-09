@@ -23,7 +23,7 @@
     "build:run": "nr build && nr start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "release": "bumpp && pnpm publish"
+    "release": "pnpm run build && bumpp && pnpm publish"
   },
   "dependencies": {
     "@antfu/install-pkg": "^0.3.3"
