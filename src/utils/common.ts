@@ -1,5 +1,7 @@
 import cp from 'node:child_process'
 import util from 'node:util'
+import os from 'node:os'
+import { normalize } from 'pathe'
 import { OWNER, TEMPLATES_REPO } from './constants'
 import type { Branch } from './types'
 
@@ -38,4 +40,8 @@ export async function getAllBraches() {
   catch (error) {
     console.error(error)
   }
+}
+
+export function getAbsolutePath(path: string) {
+  return (path === '~' || path.startsWith('~/')) ? path.replace('~', normalize(os.homedir())) : path
 }

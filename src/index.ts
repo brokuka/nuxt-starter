@@ -8,6 +8,7 @@ import downloadTemplate from './cli/stages/download-template'
 import postInstall from './cli/stages/post-install'
 import initGit from './cli/stages/init-git'
 import type { TemplatesName } from './utils/types'
+import { getAbsolutePath } from './utils/common'
 
 async function main() {
   const defaultSettings = await p.group({
@@ -49,8 +50,7 @@ async function main() {
     }),
   })
 
-  const cwd = defaultSettings.folderName === PROMT_FOLDER_CHOOSE.defaultValue ? '.' : defaultSettings.folderName
-
+  const cwd = defaultSettings.folderName === PROMT_FOLDER_CHOOSE.defaultValue ? '.' : getAbsolutePath(defaultSettings.folderName)
   const packageManager = defaultSettings.packageManager as PackageManager
 
   try {
