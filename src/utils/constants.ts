@@ -10,6 +10,7 @@ export const BASIC_PACKAGES = {
   '@nuxt/eslint': 'latest',
   'eslint-plugin-format': 'latest',
   'eslint': 'latest',
+  'template-copyright': 'latest',
 } as const
 
 export const ADDITIONAL_PACKAGES = {
