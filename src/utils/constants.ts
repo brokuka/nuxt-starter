@@ -19,7 +19,7 @@ export const ADDITIONAL_PACKAGES = {
     'vue-tsc': 'latest',
   },
   unocss: {
-    '@unocss/eslint-config': 'latest',
+    '@unocss/eslint-plugin': 'latest',
     '@unocss/nuxt': 'latest',
     'unocss': 'latest',
   },
