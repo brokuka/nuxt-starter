@@ -26,7 +26,8 @@
     "release": "pnpm run build && bumpp && pnpm publish"
   },
   "dependencies": {
-    "@antfu/install-pkg": "^0.3.3"
+    "@antfu/install-pkg": "^0.3.3",
+    "picocolors": "^1.0.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
@@ -37,7 +38,6 @@
     "eslint": "^9.5.0",
     "eslint-plugin-format": "^0.1.2",
     "pathe": "^1.1.2",
-    "picocolors": "^1.0.1",
     "tsup": "^8.1.0",
     "tsx": "^4.15.7"
   }
