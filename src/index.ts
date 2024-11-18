@@ -83,6 +83,11 @@ async function main() {
     }),
   })
 
+  /* If template is only one */
+  if (!additionalSettings.template) {
+    additionalSettings.template = options[0].value
+  }
+
   const cwd = defaultSettings.folderName === PROMT_FOLDER_CHOOSE.defaultValue ? '.' : getAbsolutePath(defaultSettings.folderName)
   const packageManager = defaultSettings.packageManager as PackageManager
 
