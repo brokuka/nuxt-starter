@@ -1,5 +1,5 @@
 import c from 'picocolors'
-import type { IPromtSelect, IPromtTextGroup } from './types'
+import type { IPromtSelect, IPromtTextGroup, TemplateCSSStyle } from './types'
 
 export const OWNER = 'brokuka'
 export const TEMPLATES_REPO = 'nuxt-templates'
@@ -34,7 +34,8 @@ export const PROMT_TEXT = {
   end_install_dependencies: 'Successfully installed project dependencies',
   start_nuxt_prepare: 'Almost done, need to prepare',
   start_make_base_structure: 'Starting making base structure',
-  select_css_styles: 'Choose your css style',
+  select_nuxt_version: 'Choose NUXT version',
+  select_css_styles: 'Choose your CSS style',
   select_project_template: c.blue('Select project template'),
   confirm_unocss: c.blue('Do you want to add UnoCSS?'),
   confirm_typescript: c.blue('Do you want to add TypeScript?'),
@@ -60,9 +61,21 @@ export const PROMT_PACKAGE_MANAGER_SELECT = [
   { value: 'bun', label: 'bun' },
 ] satisfies IPromtSelect[]
 
+export const PROMT_NUXT_VERSION_SELECT = [
+  { value: 'v3', label: 'v3', hint: c.cyan('default') },
+  // TODO: adding v4 templates
+] satisfies IPromtSelect[]
+
+export const PROMT_CSS_STYLE_SELECT = [
+  { value: 'css', label: 'Vanilla', hint: c.cyan('default') },
+  { value: 'unocss', label: 'UnoCSS' },
+  { value: 'tailwind', label: 'Tailwind' },
+] satisfies IPromtSelect<TemplateCSSStyle>[]
+
 export const PROMT_TEMPLATE_SELECT = [
   { value: 'v3', label: 'v3', hint: c.cyan('default') },
   { value: '@brokuka', label: '@brokuka\'s' },
-  { value: 'v3-unocss', label: 'v3-unocss', hint: c.cyan('default') },
-  { value: 'v3-unocss-shadcn', label: 'v3-unocss-shadcn' },
+  { value: 'v3-unocss', label: 'UnoCSS', hint: c.cyan('default') },
+  { value: 'v3-unocss-shadcn', label: 'UnoCSS + shadcn/ui' },
+  { value: 'v3-tailwind', label: 'Tailwind' },
 ] satisfies IPromtSelect[]

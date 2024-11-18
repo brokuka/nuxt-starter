@@ -9,11 +9,13 @@ export interface IPromtTextGroup {
   defaultValue: string
 }
 
-export interface IPromtSelect {
+export interface IPromtSelect<T = void> {
   label: string
-  value: string
+  value: T extends void ? string : T
   hint?: string
 }
+
+export type TemplateCSSStyle = 'unocss' | 'css' | 'tailwind'
 
 export interface IExecFileException extends Omit<ExecException, 'code'>, Omit<NodeJS.ErrnoException, 'code'> { code?: string | number | undefined | null }
 

@@ -2,26 +2,42 @@ import process from 'node:process'
 import type { ExecFileException } from 'node:child_process'
 import * as p from '@clack/prompts'
 import type { PackageManager } from '@antfu/install-pkg'
+import c from 'picocolors'
 import installDependencies from './cli/stages/install-dependencies'
-import { PROMT_FOLDER_CHOOSE, PROMT_PACKAGE_MANAGER_SELECT, PROMT_TEMPLATE_SELECT, PROMT_TEXT } from './utils/constants'
+import { PROMT_CSS_STYLE_SELECT, PROMT_FOLDER_CHOOSE, PROMT_NUXT_VERSION_SELECT, PROMT_PACKAGE_MANAGER_SELECT, PROMT_TEMPLATE_SELECT, PROMT_TEXT } from './utils/constants'
 import downloadTemplate from './cli/stages/download-template'
 import postInstall from './cli/stages/post-install'
 import initGit from './cli/stages/init-git'
-import type { TemplatesName } from './utils/types'
+import type { TemplateCSSStyle, TemplatesName } from './utils/types'
 import { getAbsolutePath } from './utils/common'
 
 async function main() {
+  const initialValues = {
+    packageManager: 'npm',
+    version: 'v3',
+    style: 'css',
+  }
+
+  p.intro(c.inverse(' nuxt-starter '))
+
   const defaultSettings = await p.group({
     packageManager: () => p.select({
       message: PROMT_TEXT.select_package_manager,
       options: PROMT_PACKAGE_MANAGER_SELECT,
-      initialValue: 'npm',
+      initialValue: initialValues.packageManager,
     }),
     folderName: () => p.text({
       ...PROMT_FOLDER_CHOOSE,
     }),
-    unocss: () => p.confirm({
-      message: PROMT_TEXT.confirm_unocss,
+    version: () => p.select({
+      message: PROMT_TEXT.select_nuxt_version,
+      options: PROMT_NUXT_VERSION_SELECT,
+      initialValue: initialValues.version,
+    }),
+    style: () => p.select({
+      message: PROMT_TEXT.select_css_styles,
+      options: PROMT_CSS_STYLE_SELECT,
+      initialValue: initialValues.style,
     }),
   }, {
     onCancel: () => {
@@ -30,18 +46,35 @@ async function main() {
     },
   })
 
-  const options = PROMT_TEMPLATE_SELECT.filter(
-    option => option.label.toLowerCase().includes('unocss') === defaultSettings.unocss,
-  )
+  const choosedVersion = defaultSettings.version
+  const choosedStyle = defaultSettings.style as TemplateCSSStyle
 
-  const initialValue = defaultSettings.unocss ? 'v3-unocss' : 'v3'
+  const options = (() => {
+    if (choosedStyle !== 'css') {
+      return PROMT_TEMPLATE_SELECT.filter(option => option.value.includes(defaultSettings.style))
+    }
+
+    return PROMT_TEMPLATE_SELECT.filter(option => option.value === defaultSettings.version)
+  })()
+
+  const templateInitialValue = (() => {
+    if (choosedStyle !== 'css') {
+      return `${choosedVersion}-${choosedStyle}`
+    }
+
+    return choosedVersion
+  })()
 
   const additionalSettings = await p.group({
-    template: () => p.select({
-      message: PROMT_TEXT.select_project_template,
-      options,
-      initialValue,
-    }),
+    template: () => {
+      if (options.length > 1) {
+        return p.select({
+          message: PROMT_TEXT.select_project_template,
+          options,
+          initialValue: templateInitialValue,
+        })
+      }
+    },
     typescript: () => p.confirm({
       message: PROMT_TEXT.confirm_typescript,
     }),
@@ -64,7 +97,7 @@ async function main() {
       cwd,
       additional: {
         typescript: additionalSettings.typescript,
-        unocss: defaultSettings.unocss,
+        unocss: choosedStyle === 'unocss',
       },
     })
 
