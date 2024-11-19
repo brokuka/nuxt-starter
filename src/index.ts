@@ -102,6 +102,7 @@ async function main() {
       cwd,
       additional: {
         typescript: additionalSettings.typescript,
+        tailwind: choosedStyle === 'tailwind',
         unocss: choosedStyle === 'unocss',
       },
     })

@@ -33,6 +33,7 @@ export interface IInstallDependencies extends IPackageManagerAndCwd {
   additional: {
     typescript: boolean
     unocss: boolean
+    tailwind: boolean
   }
 }
 
@@ -47,4 +48,4 @@ export interface BranchCommit {
   url: string
 }
 
-export type TemplatesName = 'v3' | 'v4' | '@brokuka'
+export type TemplatesName = 'v3' | 'v4'

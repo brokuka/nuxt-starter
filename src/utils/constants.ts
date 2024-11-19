@@ -23,6 +23,9 @@ export const ADDITIONAL_PACKAGES = {
     '@unocss/nuxt': 'latest',
     'unocss': 'latest',
   },
+  tailwind: {
+    '@nuxtjs/tailwindcss': 'latest',
+  },
 } as const
 
 export const PROMT_TEXT = {
@@ -34,8 +37,8 @@ export const PROMT_TEXT = {
   end_install_dependencies: 'Successfully installed project dependencies',
   start_nuxt_prepare: 'Almost done, need to prepare',
   start_make_base_structure: 'Starting making base structure',
-  select_nuxt_version: 'Choose NUXT version',
-  select_css_styles: 'Choose your CSS style',
+  select_nuxt_version: c.blue('Choose NUXT version'),
+  select_css_styles: c.blue('Choose your CSS style'),
   select_project_template: c.blue('Select project template'),
   confirm_unocss: c.blue('Do you want to add UnoCSS?'),
   confirm_typescript: c.blue('Do you want to add TypeScript?'),
@@ -74,7 +77,6 @@ export const PROMT_CSS_STYLE_SELECT = [
 
 export const PROMT_TEMPLATE_SELECT = [
   { value: 'v3', label: 'v3', hint: c.cyan('default') },
-  { value: '@brokuka', label: '@brokuka\'s' },
   { value: 'v3-unocss', label: 'UnoCSS', hint: c.cyan('default') },
   { value: 'v3-unocss-shadcn', label: 'UnoCSS + shadcn/ui' },
   { value: 'v3-tailwind', label: 'Tailwind' },
