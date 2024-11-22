@@ -1,7 +1,7 @@
 {
   "name": "@brokuka/nuxt-starter",
   "type": "module",
-  "version": "1.1.13",
+  "version": "1.2.0",
   "packageManager": "pnpm@9.3.0",
   "author": "Ernest Manukyan <erik.manukyan2010@yandex.ru> (https://github.com/brokuka/)",
   "homepage": "https://github.com/brokuka/nuxt-starter",
