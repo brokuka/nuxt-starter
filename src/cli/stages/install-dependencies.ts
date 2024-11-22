@@ -1,5 +1,5 @@
 import { spinner } from '@clack/prompts'
-import type { IInstallDependencies, Keys } from 'src/utils/types'
+import type { IInstallDependencies, PackageResult, PackageVersion } from 'src/utils/types'
 import { installPackage } from '@antfu/install-pkg'
 import { ADDITIONAL_PACKAGES, BASIC_PACKAGES, PROMT_TEXT } from '../../utils/constants'
 import { transformObjectToArray } from '../../utils/common'
@@ -9,18 +9,36 @@ export default async function installDependencies({ packageManager, cwd, additio
 
   s.start(PROMT_TEXT.start_install_dependencies)
 
-  const additionalPackages: string[] = []
+  const packages: PackageResult = { dependencies: [], devDependencies: [] }
 
-  for (const add in additional) {
-    if (additional[add as Keys<typeof additional>]) {
-      additionalPackages.push(...transformObjectToArray(ADDITIONAL_PACKAGES[add as Keys<typeof additional>]))
+  const processPackageGroup = (packageGroup: Record<string, string | PackageVersion>) => {
+    const result = transformObjectToArray(packageGroup)
+
+    packages.dependencies.push(...result.dependencies)
+    packages.devDependencies.push(...result.devDependencies)
+  }
+
+  processPackageGroup(BASIC_PACKAGES)
+
+  if (additional.typescript) {
+    processPackageGroup(ADDITIONAL_PACKAGES.typescript)
+  }
+
+  if (additional.css) {
+    const stylePackage = ADDITIONAL_PACKAGES.style.find(
+      style => style.name === additional.css,
+    )
+
+    if (stylePackage) {
+      processPackageGroup(stylePackage.packages)
     }
   }
 
-  const pkgArray = transformObjectToArray(BASIC_PACKAGES)
-  const mergedPackages = [...pkgArray, ...additionalPackages]
+  await installPackage(packages.devDependencies, { cwd, packageManager, silent: true, dev: true })
 
-  await installPackage(mergedPackages, { cwd, packageManager, silent: true, dev: true })
+  if (packages.dependencies.length) {
+    await installPackage(packages.dependencies, { cwd, packageManager, silent: true })
+  }
 
   s.stop(PROMT_TEXT.end_install_dependencies)
 }

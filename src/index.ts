@@ -101,9 +101,8 @@ async function main() {
       packageManager,
       cwd,
       additional: {
-        typescript: additionalSettings.typescript,
-        tailwind: choosedStyle === 'tailwind',
-        unocss: choosedStyle === 'unocss',
+        typescript: true,
+        css: choosedStyle,
       },
     })
 

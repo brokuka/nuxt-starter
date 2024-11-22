@@ -29,12 +29,36 @@ export interface IDownloadTemplate {
   name: TemplatesName
 }
 
+export interface PackageVersion {
+  version: string
+  dev?: boolean
+}
+
+export interface StylePackage {
+  name: string
+  packages: Record<string, string | PackageVersion>
+}
+
+export interface PackageResult {
+  dependencies: string[]
+  devDependencies: string[]
+}
+
+export interface AdditionalPackages {
+  typescript: Record<string, string | PackageVersion>
+  style: Record<TemplateCSSStyle, StylePackage>
+}
+
 export interface IInstallDependencies extends IPackageManagerAndCwd {
   additional: {
     typescript: boolean
-    unocss: boolean
-    tailwind: boolean
+    css: TemplateCSSStyle
   }
+}
+
+export interface ITransformPackagesSource {
+  source: Record<string, any> | StylePackage[] | PackageVersion | string
+  result: PackageResult
 }
 
 export interface Branch {

@@ -3,7 +3,7 @@ import util from 'node:util'
 import os from 'node:os'
 import { normalize } from 'pathe'
 import { OWNER, TEMPLATES_REPO } from './constants'
-import type { Branch } from './types'
+import type { Branch, ITransformPackagesSource, PackageResult, PackageVersion, StylePackage } from './types'
 
 export function execCmd(cmd: string, cwd?: string) {
   const exec = util.promisify(cp.exec)
@@ -11,16 +11,47 @@ export function execCmd(cmd: string, cwd?: string) {
   return exec(cmd, { cwd })
 }
 
-export function transformObjectToArray(obj: Record<string, string | Record<string, string>>): string[] {
-  return Object.keys(obj).flatMap((key) => {
-    const value = obj[key]
+export function transformObjectToArray(
+  source: ITransformPackagesSource['source'],
+  result: ITransformPackagesSource['result'] = { dependencies: [], devDependencies: [] },
+): PackageResult {
+  const addPackage = (name: string, isDev = true): void => {
+    const target = isDev ? result.devDependencies : result.dependencies
+    target.push(name)
+  }
 
-    if (typeof value === 'string') {
-      return `${key}@${value}`
+  const processPackage = (key: string, value: string | PackageVersion | Record<string, any>): void => {
+    if (typeof value === 'object' && value !== null) {
+      if ('version' in value) {
+        const packageName = `${key}@${value.version}`
+
+        addPackage(packageName, value.dev !== false)
+
+        return
+      }
+
+      transformObjectToArray(value, result)
+
+      return
     }
 
-    return transformObjectToArray(value).map(pkg => pkg)
+    addPackage(`${key}@${value}`)
+  }
+
+  if (Array.isArray(source)) {
+    source.forEach((item) => {
+      const target = item.packages || item
+      transformObjectToArray(target, result)
+    })
+
+    return result
+  }
+
+  Object.entries(source).forEach(([key, value]) => {
+    processPackage(key, value)
   })
+
+  return result
 }
 
 export async function getAllBraches() {

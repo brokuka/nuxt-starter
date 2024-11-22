@@ -18,14 +18,25 @@ export const ADDITIONAL_PACKAGES = {
     'typescript': 'latest',
     'vue-tsc': 'latest',
   },
-  unocss: {
-    '@unocss/eslint-plugin': 'latest',
-    '@unocss/nuxt': 'latest',
-    'unocss': 'latest',
-  },
-  tailwind: {
-    '@nuxtjs/tailwindcss': 'latest',
-  },
+  style: [
+    {
+      name: 'unocss',
+      packages: {
+        '@unocss/eslint-plugin': 'latest',
+        '@unocss/nuxt': 'latest',
+        'unocss': 'latest',
+      },
+    },
+    {
+      name: 'tailwind',
+      packages: {
+        '@nuxtjs/tailwindcss': {
+          version: 'latest',
+          dev: false,
+        },
+      },
+    },
+  ],
 } as const
 
 export const PROMT_TEXT = {
