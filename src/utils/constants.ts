@@ -91,4 +91,5 @@ export const PROMT_TEMPLATE_SELECT = [
   { value: 'v3-unocss', label: 'UnoCSS', hint: c.cyan('default') },
   { value: 'v3-unocss-shadcn', label: 'UnoCSS + shadcn/ui' },
   { value: 'v3-tailwind', label: 'Tailwind' },
+  { value: 'v3-tailwind-shadcn', label: 'Tailwind + shadcn/ui' },
 ] satisfies IPromtSelect[]
